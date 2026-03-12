@@ -1,0 +1,77 @@
+
+
+----------------- BANK DATABASE MANAGEMENT SYSTEM (DBMS)-----------------------------------------------------------------------
+
+CREATE table Customer_details (Customer_Id BIGint primary key ,Fristname varchar(50) not null,
+Lastname varchar(50) not null,DOB DATE not null,PAN varchar(10) not null unique, 
+KYC varchar(50) not null , Cust_address text not null,Email varchar(25) not null unique,
+Mobile_no VARCHAR(10) not null unique );
+select * from Customer_details ;
+
+Insert into Customer_details 
+values (20312364581,'Rajaram','gaikwad','2000-02-01','RAJARG3541','RP1236547896','swargate Pune','Rajaram564@gmail.com','9545701934');
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+CREATE TABLE Account_Details (Account_number BIGint PRIMARY KEY,Customer_Id BIGINT,Account_type VARCHAR(10) NOT NULL
+CHECK (Account_type IN ('Saving','Current','FD','RD','OD','CC','NRI') ), Cash_Balance DECIMAL(10,2),
+DateCreated DATE,FOREIGN KEY (Customer_Id) REFERENCES Customer_details(Customer_Id));
+select * from account_details;
+
+Insert into Account_Details values (301365489723,20312364581,'Saving',20526.50,'2023-05-13');
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Create table Transaction_Details (TransactionID BIGINT Primary key ,Account_number BIGINT,
+Transaction_Type varchar (20) not null check (Transaction_Type IN ('Deposit' , 'Withdrawal')) ,Amount decimal(10,2),Transaction_Date TIMESTAMP,
+FOREIGN KEY (Account_number) REFERENCES Account_Details(Account_number));
+select * from Transaction_Details;
+alter table Transaction_Details alter Account_number type BIGINT;
+CREATE OR REPLACE FUNCTION update_balance()
+RETURNS TRIGGER
+AS $$
+BEGIN
+
+IF NEW.transaction_type = 'Deposit' THEN
+    UPDATE Account_Details
+    SET Cash_Balance = Cash_Balance + NEW.amount
+    WHERE Account_number = NEW.Account_number;
+
+ELSIF NEW.transaction_type = 'Withdrawal' THEN
+    UPDATE Account_Details
+    SET Cash_Balance = Cash_Balance - NEW.amount
+    WHERE Account_number = NEW.Account_number;
+
+END IF;
+
+RETURN NEW;
+
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER transfer_trigger
+AFTER INSERT
+ON Transaction_Details
+FOR EACH ROW
+EXECUTE FUNCTION update_balance();
+SELECT * FROM information_schema.triggers;
+
+
+
+
+INSERT INTO Transaction_Details
+VALUES 
+(230125483214,301365489723,'Deposit',3000,CURRENT_TIMESTAMP);
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
+create table Staff_details (Staff_Id int primary key, Frist_name varchar(50) not null, last_name varchar (50)not null, staff_position varchar(20) not null check
+(staff_position in ('Clerk','Head clerk','Probationary officer','Service manager','Branch manager')), Branch varchar(50));
+select * from Staff_details;
+ 
+insert into Staff_details values 
+(50896,'Anil','Jadhav','Clerk','Aurangabad');
+--------------------------------------------------------------------------------------------------------------
+
+create role clerk_anil50896 with PASSWORD 'Anil@2020';
+create role headclerk_suresh50897 WITH password 'Suresh@2020';
+create role Probationary_officermeena with password 'Meena@2020';
+create role service_managerrahul with password 'Rahul@2020';
+create role  Branch_managerpriya with password 'Priya@1010';
+---------------------------------------------------------------------------------------------------------------------------
