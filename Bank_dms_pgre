@@ -1,6 +1,6 @@
 
 
------------------ BANK DATABASE MANAGEMENT SYSTEM (DBMS)-----------------------------------------------------------------------
+----------------- BANK DATABASE MANAGEMENT SYSTEM (BDMS)-----------------------------------------------------------------------
 
 CREATE table Customer_details (Customer_Id BIGint primary key ,Fristname varchar(50) not null,
 Lastname varchar(50) not null,DOB DATE not null,PAN varchar(10) not null unique, 
@@ -75,6 +75,7 @@ create role Probationary_officermeena with password 'Meena@2020';
 create role service_managerrahul with password 'Rahul@2020';
 create role  Branch_managerpriya with password 'User@123';
 ---------------------------------------------------------------------------------------------------------------------------
+
 
 
 
