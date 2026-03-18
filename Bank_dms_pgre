@@ -20,7 +20,7 @@ select * from account_details;
 Insert into Account_Details values (301365489723,20312364581,'Saving',20526.50,'2023-05-13');
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-Create table Transaction_Details (TransactionID BIGINT Primary key ,Account_number BIGINT,
+Create table Transaction_Details (TransactionID BIGINT SERIAL Primary key ,Account_number BIGINT,
 Transaction_Type varchar (20) not null check (Transaction_Type IN ('Deposit' , 'Withdrawal')) ,Amount decimal(10,2),Transaction_Date TIMESTAMP,
 FOREIGN KEY (Account_number) REFERENCES Account_Details(Account_number));
 select * from Transaction_Details;
