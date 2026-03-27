@@ -8,7 +8,6 @@ Subject: Database Management System
 
 Tool Used: PostgreSQL 
 
-Submission Date: 12-03-2026
 
 Institute: AI_Sparks
 
