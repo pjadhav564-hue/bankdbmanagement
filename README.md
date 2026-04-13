@@ -9,7 +9,6 @@ Subject: Database Management System
 Tool Used: PostgreSQL 
 
 
-Institute: AI_Sparks
 
 ## 1. INTRODUCTION 
 A Bank Database Management System is designed to manage banking operations efficiently using a relational database. It stores and organizes important banking data such as customer information, accounts, transactions, and branchstaff details. 
